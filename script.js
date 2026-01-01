@@ -161,9 +161,19 @@ document.querySelectorAll('.genre-orb').forEach(btn => {
     });
 });
 
+// SHUFFLE FUNCTION - Randomizes array order
+function shuffleArray(array) {
+    const shuffled = [...array]; // Create a copy
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
 function loadDeck(deckType) {
     currentDeck = deckType;
-    const cards = CARDS[deckType];
+    const cards = shuffleArray(CARDS[deckType]);
     const fan = document.getElementById('cardFan');
     const title = document.getElementById('deckTitle');
     
