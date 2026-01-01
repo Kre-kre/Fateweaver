@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FATEWEAVER</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400;500&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="constellation"></canvas>
+    
+    <!-- START -->
+    <div id="startScreen" class="screen active">
+        <div class="celestial-ornament"></div>
+        <h1>FATEWEAVER</h1>
+        <p class="ritual-text">A Story Oracle</p>
+        <button class="ritual-button" id="beginBtn">Begin the Ritual</button>
+        <div class="celestial-ornament"></div>
+    </div>
+
+    <!-- GENRE -->
+    <div id="genreScreen" class="screen">
+        <h2>Choose Your Realm</h2>
+        <div class="cosmic-divider"></div>
+        
+        <div class="genre-grid">
+            <button class="genre-orb" data-genre="fantasy">Epic Fantasy</button>
+            <button class="genre-orb" data-genre="scifi">Science Fiction</button>
+            <button class="genre-orb" data-genre="mystery">Mystery</button>
+            <button class="genre-orb" data-genre="horror">Horror</button>
+            <button class="genre-orb" data-genre="romance">Romance</button>
+            <button class="genre-orb" data-genre="thriller">Thriller</button>
+            <button class="genre-orb" data-genre="literary">Literary Fiction</button>
+            <button class="genre-orb" data-genre="historical">Historical</button>
+        </div>
+    </div>
+
+    <!-- CARD SELECTION -->
+    <div id="cardScreen" class="screen">
+        <div class="cosmic-progress">
+            <div class="progress-orb active" data-step="1"></div>
+            <div class="progress-beam"></div>
+            <div class="progress-orb" data-step="2"></div>
+            <div class="progress-beam"></div>
+            <div class="progress-orb" data-step="3"></div>
+        </div>
+        
+        <h2 id="deckTitle">Choose a Character</h2>
+        <div class="cosmic-divider small"></div>
+        
+        <div class="card-fan" id="cardFan"></div>
+        <div class="selection-circle" id="selectionCircle"></div>
+    </div>
+
+    <!-- REVELATION -->
+    <div id="revelationScreen" class="screen">
+        <div class="golden-glow"></div>
+        <div class="revelation-cards" id="revelationCards"></div>
+        
+        <div class="oracle-scroll">
+            <div class="scroll-ornament"></div>
+            <h3>The Oracle Speaks</h3>
+            <p id="promptText"></p>
+            <p id="promptMeta"></p>
+            <div class="scroll-ornament bottom"></div>
+        </div>
+        
+        <button class="ritual-button secondary" id="resetBtn">Consult Again</button>
+    </div>
+
+    <!-- MODAL -->
+    <div id="modal" class="modal">
+        <div class="modal-veil"></div>
+        <div class="modal-box">
+            <div class="cosmic-divider tiny"></div>
+            <p class="modal-warning">The threads of fate resist unweaving</p>
+            <p class="modal-question">Begin anew?</p>
+            <div class="modal-buttons">
+                <button class="modal-btn" id="confirmReset">Yes</button>
+                <span>⋆</span>
+                <button class="modal-btn" id="cancelReset">No</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="prompts-database.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

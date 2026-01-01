@@ -1,0 +1,637 @@
+/* FATEWEAVER - Mystical Experience */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --void: #000000;
+    --deep-void: #08090f;
+    --brass: #c9a961;
+    --gold: #d4af37;
+    --parchment: #f4f1e8;
+    --dim: #b8b5ac;
+}
+
+body {
+    font-family: 'Cormorant Garamond', serif;
+    background: var(--void);
+    color: var(--parchment);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* CONSTELLATION */
+#constellation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/* SCREENS */
+.screen {
+    position: relative;
+    z-index: 1;
+    display: none;
+    min-height: 100vh;
+    padding: 60px 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* TYPOGRAPHY */
+h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 4rem;
+    font-weight: 300;
+    color: var(--brass);
+    letter-spacing: 0.6em;
+    text-transform: uppercase;
+    margin: 2rem 0 1rem;
+    text-shadow: 0 0 30px rgba(201, 169, 97, 0.3);
+}
+
+h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--brass);
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    margin-bottom: 32rem;
+}
+
+h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+}
+
+.ritual-text {
+    font-size: 1.1rem;
+    color: var(--dim);
+    letter-spacing: 0.3em;
+    font-style: italic;
+    margin-bottom: 3rem;
+}
+
+/* CELESTIAL ORNAMENTS */
+.celestial-ornament {
+    width: 300px;
+    height: 100px;
+    position: relative;
+    margin: 2rem 0;
+}
+
+.celestial-ornament::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--brass);
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(201, 169, 97, 0.3);
+}
+
+.celestial-ornament::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--brass), transparent);
+}
+
+.cosmic-divider {
+    width: 500px;
+    height: 60px;
+    position: relative;
+    margin: 2rem 0 4rem;
+}
+
+.cosmic-divider::before {
+    content: '✦';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--brass);
+    font-size: 1.2rem;
+    text-shadow: 0 0 20px rgba(201, 169, 97, 0.5);
+}
+
+.cosmic-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 10%, var(--brass) 50%, transparent 90%);
+}
+
+.cosmic-divider.small {
+    width: 300px;
+    height: 40px;
+    margin: 1rem 0 3rem;
+}
+
+.cosmic-divider.tiny {
+    width: 150px;
+    height: 30px;
+    margin: 0 auto 2rem;
+}
+
+/* BUTTONS */
+.ritual-button {
+    position: relative;
+    background: transparent;
+    color: var(--brass);
+    border: 1px solid var(--brass);
+    padding: 18px 50px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    overflow: hidden;
+}
+
+.ritual-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201, 169, 97, 0.2), transparent);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.ritual-button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.ritual-button:hover {
+    box-shadow: 0 0 30px rgba(201, 169, 97, 0.4);
+    transform: translateY(-2px);
+}
+
+.ritual-button.secondary {
+    border-color: rgba(201, 169, 97, 0.5);
+    color: var(--dim);
+    padding: 14px 40px;
+    font-size: 0.8rem;
+}
+
+/* GENRES */
+.genre-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.genre-orb {
+    position: relative;
+    background: transparent;
+    border: 1px solid rgba(201, 169, 97, 0.3);
+    color: var(--dim);
+    padding: 30px 20px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.genre-orb::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--brass);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.genre-orb:hover {
+    border-color: var(--brass);
+    color: var(--brass);
+    background: rgba(201, 169, 97, 0.05);
+    box-shadow: 0 0 25px rgba(201, 169, 97, 0.2);
+}
+
+.genre-orb:hover::before {
+    opacity: 1;
+}
+
+/* COSMIC PROGRESS */
+.cosmic-progress {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 4rem;
+}
+
+.progress-orb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid rgba(201, 169, 97, 0.4);
+    background: transparent;
+    position: relative;
+    transition: all 0.8s ease;
+}
+
+.progress-orb.active {
+    background: var(--brass);
+    border-color: var(--brass);
+    box-shadow: 0 0 20px rgba(201, 169, 97, 0.6);
+}
+
+.progress-orb.active::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    border: 1px solid rgba(201, 169, 97, 0.3);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+    50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0; }
+}
+
+.progress-beam {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(201, 169, 97, 0.4), transparent);
+}
+
+/* CARD FAN */
+.card-fan {
+    position: fixed;
+    bottom: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1600px;
+    height: 550px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    perspective: 1200px;
+}
+
+.fan-card {
+    position: absolute;
+    width: 410px;  /* ← MAKE CARDS BIGGER HERE */
+    height: 610px; /* ← AND HERE */
+    cursor: pointer;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center bottom;
+}
+
+.fan-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(201, 169, 97, 0.3);
+}
+
+.fan-card:hover {
+    transform: translateY(-40px) scale(1.05) !important;
+    z-index: 100 !important;
+}
+
+.fan-card:hover img {
+    box-shadow: 0 20px 60px rgba(201, 169, 97, 0.3);
+    border-color: var(--brass);
+}
+
+.fan-card.selected {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* SELECTION CIRCLE */
+.selection-circle {
+    display: none; /* Hidden - using fan at bottom approach */
+}
+
+.selection-slot {
+    display: none;
+}
+
+/* REVELATION */
+#revelationScreen {
+    background: radial-gradient(circle, rgba(201, 169, 97, 0.1) 0%, var(--void) 70%);
+}
+
+.golden-glow {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.2), transparent 70%);
+    border-radius: 50%;
+    animation: glow 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes glow {
+    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+.revelation-cards {
+    display: flex;
+    gap: 50px;
+    margin-bottom: 5rem;
+    justify-content: center;
+}
+
+.revealed-card {
+    width: 280px;
+    height: 420px;
+    opacity: 0;
+    transform: rotateY(180deg);
+    animation: reveal 1.2s ease forwards;
+}
+
+.revealed-card:nth-child(1) { animation-delay: 0.3s; }
+.revealed-card:nth-child(2) { animation-delay: 0.7s; }
+.revealed-card:nth-child(3) { animation-delay: 1.1s; }
+
+@keyframes reveal {
+    0% {
+        opacity: 0;
+        transform: rotateY(180deg) scale(0.8);
+    }
+    60% {
+        transform: rotateY(0deg) scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: rotateY(0deg) scale(1);
+    }
+}
+
+.revealed-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 2px solid var(--brass);
+    box-shadow: 0 15px 50px rgba(201, 169, 97, 0.4);
+}
+
+.revealed-card .card-name {
+    text-align: center;
+    margin-top: 15px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    color: var(--brass);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+/* ORACLE SCROLL */
+.oracle-scroll {
+    max-width: 900px;
+    padding: 50px 60px;
+    background: rgba(13, 17, 23, 0.8);
+    border: 1px solid rgba(201, 169, 97, 0.3);
+    border-radius: 4px;
+    position: relative;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: scrollAppear 1s ease 2s forwards;
+}
+
+@keyframes scrollAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.oracle-scroll::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border: 1px solid rgba(201, 169, 97, 0.15);
+    pointer-events: none;
+}
+
+.scroll-ornament {
+    width: 200px;
+    height: 30px;
+    position: relative;
+    margin: 0 auto 3rem;
+}
+
+.scroll-ornament::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--brass), transparent);
+}
+
+.scroll-ornament::after {
+    content: '✦';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--brass);
+    font-size: 0.8rem;
+}
+
+.scroll-ornament.bottom {
+    margin: 3rem auto 0;
+}
+
+/* CHANGE TEXT ALIGNMENT HERE: */
+#promptText {
+    font-size: 1.35rem;
+    line-height: 2.2;
+    color: var(--parchment);
+    text-align: left;           /* ← CHANGE THIS: left, center, justify, or right */
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.02em;
+    text-indent: 2em;           /* Elegant first-line indent */
+}
+
+#promptMeta {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    color: var(--dim);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+}
+
+.modal.active {
+    display: block;
+}
+
+.modal-veil {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+.modal-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--deep-void);
+    border: 2px solid var(--brass);
+    padding: 60px 70px;
+    max-width: 600px;
+    text-align: center;
+}
+
+.modal-warning {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    color: var(--brass);
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+}
+
+.modal-question {
+    font-size: 1rem;
+    color: var(--dim);
+    letter-spacing: 0.15em;
+    margin-bottom: 3rem;
+    font-style: italic;
+}
+
+.modal-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.modal-buttons span {
+    color: var(--brass);
+    font-size: 1.5rem;
+}
+
+.modal-btn {
+    background: none;
+    border: none;
+    color: var(--brass);
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.modal-btn:hover {
+    color: var(--gold);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+    .genre-grid { grid-template-columns: repeat(3, 1fr); gap: 30px; }
+}
+
+@media (max-width: 900px) {
+    h1 { font-size: 3rem; }
+    h2 { font-size: 1.8rem; }
+    .genre-grid { grid-template-columns: repeat(2, 1fr); }
+    .fan-card { width: 180px; height: 270px; }
+    .revelation-cards { flex-direction: column; align-items: center; }
+}
+
+@media (max-width: 600px) {
+    .genre-grid { grid-template-columns: 1fr; }
+    .oracle-scroll { padding: 40px 30px; }
+    #promptText { font-size: 1.1rem; }
+}
+
+/* Screen-Specific Heading Overrides */
+#welcomeScreen h2,
+#genreScreen h2 {
+    margin-bottom: 2rem; /* Tight spacing for intro screens */
+}
+
+#cardScreen .instruction-text {
+    /* Absolutely positioned - no margin needed, controlled by 'top' property */
+    margin-bottom: 0;
+}
+
+#revelationScreen .oracle-title {
+    margin-bottom: 2rem; /* Controlled spacing for revelation */
+}
