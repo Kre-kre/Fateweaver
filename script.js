@@ -163,7 +163,7 @@ document.querySelectorAll('.genre-orb').forEach(btn => {
 
 // SHUFFLE FUNCTION - Randomizes array order
 function shuffleArray(array) {
-    const shuffled = [...array]; // Create a copy
+    const shuffled = [...array]; // Create a copy to avoid mutating original
     for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
@@ -173,7 +173,7 @@ function shuffleArray(array) {
 
 function loadDeck(deckType) {
     currentDeck = deckType;
-    const cards = shuffleArray(CARDS[deckType]);
+    const cards = shuffleArray(CARDS[deckType]); // ← RANDOMIZE CARDS HERE
     const fan = document.getElementById('cardFan');
     const title = document.getElementById('deckTitle');
     
@@ -203,14 +203,34 @@ function loadDeck(deckType) {
         const radius = 100;
         const offsetX = Math.sin(angle * Math.PI / 180) * radius;
         
-        cardEl.style.transform = `translateX(${offsetX}px) rotate(${angle}deg)`;
+        // Store the base transform for smooth transitions
+        const baseTransform = `translateX(${offsetX}px) rotate(${angle}deg)`;
+        cardEl.style.transform = baseTransform;
         cardEl.style.zIndex = index;
+        
+        // Store base transform for hover effects
+        cardEl.dataset.baseTransform = baseTransform;
         
         // Show card BACK
         cardEl.innerHTML = `<img src="${card.back}" alt="${card.name}">`;
         cardEl.dataset.cardId = card.id;
         cardEl.dataset.cardName = card.name;
         cardEl.dataset.cardFront = card.front;
+        
+        // Smooth hover effect
+        cardEl.addEventListener('mouseenter', () => {
+            if (!cardEl.classList.contains('selected')) {
+                cardEl.style.transform = `${baseTransform} translateY(-60px) scale(1.1)`;
+                cardEl.style.zIndex = 100;
+            }
+        });
+        
+        cardEl.addEventListener('mouseleave', () => {
+            if (!cardEl.classList.contains('selected')) {
+                cardEl.style.transform = baseTransform;
+                cardEl.style.zIndex = index;
+            }
+        });
         
         cardEl.addEventListener('click', () => selectCard(card, deckType, cardEl));
         
@@ -219,21 +239,33 @@ function loadDeck(deckType) {
 }
 
 function selectCard(card, deckType, cardEl) {
-    // Mark as selected
+    // Prevent double-clicking during transition
+    if (cardEl.classList.contains('selected')) return;
+    
+    // Get base transform before selection
+    const baseTransform = cardEl.dataset.baseTransform;
+    
+    // Animate card flying up and fading out
+    cardEl.style.transform = `${baseTransform} translateY(-120px) scale(0.9)`;
     cardEl.classList.add('selected');
     
-    // Store selection
+    // Disable all cards temporarily to prevent accidental clicks
+    document.querySelectorAll('.fan-card').forEach(c => {
+        c.style.pointerEvents = 'none';
+    });
+    
+    // Store selection and load next deck
     if (deckType === 'characters') {
         selectedCards.character = card;
         currentStep = 2;
-        setTimeout(() => loadDeck('events'), 600);
+        setTimeout(() => loadDeck('events'), 450);
     } else if (deckType === 'events') {
         selectedCards.event = card;
         currentStep = 3;
-        setTimeout(() => loadDeck('worlds'), 600);
+        setTimeout(() => loadDeck('worlds'), 450);
     } else if (deckType === 'worlds') {
         selectedCards.world = card;
-        setTimeout(showRevelation, 600);
+        setTimeout(showRevelation, 450);
     }
 }
 
